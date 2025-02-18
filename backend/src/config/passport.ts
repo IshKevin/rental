@@ -3,12 +3,11 @@ import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import { db } from '../db';
 import { users, User } from '../db/schema';
 import { eq } from 'drizzle-orm';
-import { IUser } from '../interfaces/IUser';
 
-passport.serializeUser((user: IUser, done) => {
+
+passport.serializeUser((user: User, done) => {
   done(null, user.id);
-});
-
+})
 passport.deserializeUser(async (id: number, done) => {
   try {
     const user = await db.select().from(users).where(eq(users.id, id));
