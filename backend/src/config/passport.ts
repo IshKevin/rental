@@ -3,11 +3,14 @@ import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import { db } from '../db';
 import { users, User } from '../db/schema';
 import { eq } from 'drizzle-orm';
+import { Users } from '../types';
 
 
-passport.serializeUser((user: User, done) => {
+
+passport.serializeUser<User>((user, done) => {
   done(null, user.id);
-})
+});
+
 passport.deserializeUser(async (id: number, done) => {
   try {
     const user = await db.select().from(users).where(eq(users.id, id));
@@ -30,11 +33,11 @@ passport.use(
           .select()
           .from(users)
           .where(eq(users.googleId, profile.id));
-
+        
         if (existingUser.length) {
           return done(null, existingUser[0]);
         }
-
+        
         const newUser = await db
           .insert(users)
           .values({
@@ -44,7 +47,7 @@ passport.use(
             role: 'renter',
           })
           .returning();
-
+        
         return done(null, newUser[0]);
       } catch (error) {
         return done(error as Error, undefined);
