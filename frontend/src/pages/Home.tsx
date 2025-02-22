@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, MapPin, Calendar, Star, ChevronRight } from 'lucide-react';
+import { MapPin, Calendar, Star, ChevronRight } from 'lucide-react';
 
 const HomePage = () => {
   const [searchQuery, setSearchQuery] = React.useState('');
