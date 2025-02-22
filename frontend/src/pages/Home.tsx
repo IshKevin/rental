@@ -1,5 +1,6 @@
 import React from 'react';
 import { MapPin, Calendar, Star, ChevronRight } from 'lucide-react';
+import Navbar from '@/components/Navbar';
 
 const HomePage = () => {
   const [searchQuery, setSearchQuery] = React.useState('');
@@ -28,6 +29,7 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      <Navbar />
       {/* Hero Section */}
       <div className="relative h-[600px] bg-gradient-to-r from-blue-600 to-blue-400">
         <div className="absolute inset-0">
